@@ -1,0 +1,14 @@
+{
+	"name": "@surrealdb/vercel-ai-example-basic",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"start": "bun run src/index.ts"
+	},
+	"dependencies": {
+		"@ai-sdk/openai": "^2.0.0",
+		"@surrealdb/vercel-ai": "file:../..",
+		"ai": "^7.0.19"
+	}
+}
