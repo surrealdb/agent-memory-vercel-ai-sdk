@@ -51,6 +51,7 @@
 		"build": "tsup",
 		"dev": "tsup --watch",
 		"typecheck": "tsc --noEmit",
+		"typecheck:examples": "tsc --noEmit -p examples/basic/tsconfig.json",
 		"test": "vitest run",
 		"test:watch": "vitest",
 		"lint": "biome lint .",
