@@ -1,4 +1,4 @@
-# @surrealdb/vercel-ai
+# @surrealdb/spectron-vercel-ai
 
 [Vercel AI SDK](https://ai-sdk.dev) integration for **[Spectron](https://surrealdb.com/platform/spectron)** — SurrealDB's agent memory layer.
 
@@ -14,7 +14,7 @@ The design mirrors the [Honcho Vercel AI SDK integration](https://honcho.dev/doc
 ## Install
 
 ```sh
-npm i @surrealdb/vercel-ai ai @surrealdb/spectron
+npm i @surrealdb/spectron-vercel-ai ai @surrealdb/spectron
 # plus your model provider, e.g.
 npm i @ai-sdk/openai
 ```
@@ -32,13 +32,13 @@ npm i @ai-sdk/openai
 | `SPECTRON_CONTEXT`  | Spectron context id             |
 
 ```ts
-import { createSpectron } from '@surrealdb/vercel-ai';
+import { createSpectron } from '@surrealdb/spectron-vercel-ai';
 
 // From env, bound to one user by default.
 const spectron = createSpectron({ defaultScopes: 'user/tobie' });
 
 // Or pass config / a preconstructed client explicitly:
-import { Spectron } from '@surrealdb/vercel-ai';
+import { Spectron } from '@surrealdb/spectron-vercel-ai';
 const spectron = createSpectron({
   client: new Spectron({ endpoint, apiKey, context }),
 });
@@ -53,7 +53,7 @@ after generation.
 ```ts
 import { openai } from '@ai-sdk/openai';
 import { generateText, wrapLanguageModel } from 'ai';
-import { createSpectron } from '@surrealdb/vercel-ai';
+import { createSpectron } from '@surrealdb/spectron-vercel-ai';
 
 const spectron = createSpectron({ defaultScopes: 'user/tobie' });
 

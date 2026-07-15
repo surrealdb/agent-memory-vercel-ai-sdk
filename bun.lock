@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@surrealdb/vercel-ai",
+      "name": "@surrealdb/spectron-vercel-ai",
       "dependencies": {
         "@surrealdb/spectron": "^1.0.0-alpha.5",
       },
@@ -24,11 +24,11 @@
       ],
     },
     "examples/basic": {
-      "name": "@surrealdb/vercel-ai-example-basic",
+      "name": "@surrealdb/spectron-vercel-ai-example-basic",
       "version": "0.0.0",
       "dependencies": {
         "@ai-sdk/openai": "^2.0.0",
-        "@surrealdb/vercel-ai": "file:../..",
+        "@surrealdb/spectron-vercel-ai": "file:../..",
         "ai": "^7.0.19",
       },
     },
@@ -174,9 +174,9 @@
 
     "@surrealdb/spectron": ["@surrealdb/spectron@1.0.0-alpha.5", "", { "peerDependencies": { "typescript": "^5.0.0 || ^6.0.0" } }, "sha512-HYW//1SmsmToIodssfFpsMlSTMgfmtCFdZWTKBm3XDA4bjbAX2QjAxw84JW6VDSGUFhEjiRUcPGGigSf0tqOSw=="],
 
-    "@surrealdb/vercel-ai": ["@surrealdb/vercel-ai@root:", {}],
+    "@surrealdb/spectron-vercel-ai": ["@surrealdb/spectron-vercel-ai@root:", {}],
 
-    "@surrealdb/vercel-ai-example-basic": ["@surrealdb/vercel-ai-example-basic@workspace:examples/basic"],
+    "@surrealdb/spectron-vercel-ai-example-basic": ["@surrealdb/spectron-vercel-ai-example-basic@workspace:examples/basic"],
 
     "@types/chai": ["@types/chai@5.2.3", "", { "dependencies": { "@types/deep-eql": "*", "assertion-error": "^2.0.1" } }, "sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA=="],
 

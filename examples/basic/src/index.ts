@@ -1,5 +1,5 @@
 import { openai } from '@ai-sdk/openai';
-import { createSpectron } from '@surrealdb/vercel-ai';
+import { createSpectron } from '@surrealdb/spectron-vercel-ai';
 import { generateText, stepCountIs, wrapLanguageModel } from 'ai';
 
 /**

@@ -57,7 +57,7 @@ function resolveClientOptions(config: CreateSpectronConfig): SpectronOptions {
  * ```ts
  * import { openai } from '@ai-sdk/openai';
  * import { generateText, wrapLanguageModel } from 'ai';
- * import { createSpectron } from '@surrealdb/vercel-ai';
+ * import { createSpectron } from '@surrealdb/spectron-vercel-ai';
  *
  * const spectron = createSpectron({ defaultScopes: 'user/tobie' });
  *

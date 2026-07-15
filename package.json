@@ -1,5 +1,5 @@
 {
-	"name": "@surrealdb/vercel-ai",
+	"name": "@surrealdb/spectron-vercel-ai",
 	"version": "0.1.0",
 	"description": "Vercel AI SDK integration for Spectron — SurrealDB's agent memory layer. Middleware and tools that give generateText / streamText long-term memory.",
 	"homepage": "https://surrealdb.com/platform/spectron",
