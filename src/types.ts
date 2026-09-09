@@ -2,7 +2,7 @@ import type { AgentMemory, Scope } from '@surrealdb/memory';
 
 /**
  * How the middleware retrieves memory to inject before generation:
- * - `'context'` — AgentMemory's server-formatted context text (`client.context`).
+ * - `'context'` — Agent Memory's server-formatted context text (`client.context`).
  * - `'recall'` — raw semantic hits (`client.recall`), formatted as a list.
  * - `false` — retrieve nothing (still stores the exchange, still injects the
  *   profile when enabled).
@@ -12,7 +12,7 @@ export type MemoryRetrievalMode = 'context' | 'recall' | false;
 /** Configuration for {@link createAgentMemory}. */
 export interface CreateAgentMemoryConfig {
 	/**
-	 * A preconstructed AgentMemory client. When provided, `endpoint` / `apiKey` /
+	 * A preconstructed Agent Memory client. When provided, `endpoint` / `apiKey` /
 	 * `context` are ignored.
 	 */
 	client?: AgentMemory;
@@ -20,7 +20,7 @@ export interface CreateAgentMemoryConfig {
 	endpoint?: string;
 	/** Bearer API key. Defaults to `process.env.AGENT_MEMORY_API_KEY`. */
 	apiKey?: string;
-	/** AgentMemory context id. Defaults to `process.env.AGENT_MEMORY_CONTEXT`. */
+	/** Agent Memory context id. Defaults to `process.env.AGENT_MEMORY_CONTEXT`. */
 	context?: string;
 	/**
 	 * Default scope binding applied to every `middleware()` / `tools()` call
@@ -29,7 +29,7 @@ export interface CreateAgentMemoryConfig {
 	defaultScopes?: Scope;
 	/**
 	 * Default handler for memory errors. Memory operations are fail-open, so a
-	 * AgentMemory outage degrades to a plain LLM call rather than throwing.
+	 * Agent Memory outage degrades to a plain LLM call rather than throwing.
 	 */
 	onError?: (error: unknown) => void;
 }

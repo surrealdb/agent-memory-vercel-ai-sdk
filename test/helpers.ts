@@ -2,7 +2,7 @@ import type { AgentMemory } from '@surrealdb/memory';
 import { vi } from 'vitest';
 
 /**
- * A minimal fake AgentMemory client for tests. Only the methods the middleware and
+ * A minimal fake Agent Memory client for tests. Only the methods the middleware and
  * tools touch are implemented; each is a `vi.fn()` with a sensible default that
  * individual tests can override with `mockResolvedValueOnce`.
  */

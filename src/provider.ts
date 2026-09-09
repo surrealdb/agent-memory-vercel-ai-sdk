@@ -10,11 +10,11 @@ import type {
 
 /** The object returned by {@link createAgentMemory}. */
 export interface AgentMemoryProvider {
-	/** The underlying AgentMemory client (use it directly for anything not wrapped). */
+	/** The underlying Agent Memory client (use it directly for anything not wrapped). */
 	client: AgentMemory;
 	/** A language-model middleware that injects and stores memory. */
 	middleware(options?: MiddlewareOptions): LanguageModelMiddleware;
-	/** A tool set exposing AgentMemory memory operations to the model. */
+	/** A tool set exposing Agent Memory operations to the model. */
 	tools(options?: ToolsOptions): ToolSet;
 }
 
@@ -48,7 +48,7 @@ function resolveClientOptions(
 }
 
 /**
- * Creates a AgentMemory provider for the Vercel AI SDK.
+ * Creates an Agent Memory provider for the Vercel AI SDK.
  *
  * Mirrors the Honcho integration: `createAgentMemory().middleware()` wraps your
  * own model (via `wrapLanguageModel`) to give `generateText` / `streamText`

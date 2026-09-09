@@ -3,12 +3,12 @@ import { createAgentMemory } from '@surrealdb/agent-memory-vercel-ai';
 import { generateText, stepCountIs, wrapLanguageModel } from 'ai';
 
 /**
- * Minimal end-to-end demo of AgentMemory memory across two separate calls.
+ * Minimal end-to-end demo of Agent Memory across two separate calls.
  *
  * Required environment variables:
- *   AGENT_MEMORY_ENDPOINT   AgentMemory API endpoint origin
- *   AGENT_MEMORY_API_KEY    AgentMemory bearer API key
- *   AGENT_MEMORY_CONTEXT    AgentMemory context id
+ *   AGENT_MEMORY_ENDPOINT   Agent Memory API endpoint origin
+ *   AGENT_MEMORY_API_KEY    Agent Memory bearer API key
+ *   AGENT_MEMORY_CONTEXT    Agent Memory context id
  *   OPENAI_API_KEY      OpenAI key for the model provider
  *
  * Run with:  bun run src/index.ts

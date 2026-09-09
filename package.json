@@ -1,16 +1,16 @@
 {
 	"name": "@surrealdb/agent-memory-vercel-ai",
 	"version": "0.2.0",
-	"description": "Vercel AI SDK integration for AgentMemory — SurrealDB's agent memory layer. Middleware and tools that give generateText / streamText long-term memory.",
-	"homepage": "https://surrealdb.com/platform/agentMemory",
+	"description": "Vercel AI SDK integration for Agent Memory \u2014 SurrealDB's agent memory layer. Middleware and tools that give generateText / streamText long-term memory.",
+	"homepage": "https://surrealdb.com/agent-memory",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/surrealdb-dev/agentMemory-vercel-ai-sdk.git"
+		"url": "https://github.com/surrealdb/agent-memory-vercel-ai-sdk.git"
 	},
 	"license": "Apache-2.0",
 	"type": "module",
 	"keywords": [
-		"agentMemory",
+		"agent-memory",
 		"surrealdb",
 		"vercel",
 		"ai-sdk",

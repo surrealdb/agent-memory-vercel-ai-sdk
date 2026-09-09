@@ -3,7 +3,7 @@ import { jsonSchema, type ToolSet, tool } from 'ai';
 import type { ToolsOptions } from './types';
 
 /**
- * Builds a Vercel AI SDK {@link ToolSet} that exposes AgentMemory's memory
+ * Builds a Vercel AI SDK {@link ToolSet} that exposes Agent Memory's memory
  * operations to the model, for on-demand queries during generation. Tool inputs
  * use `jsonSchema` (no `zod` dependency). Every tool is bound to the scope and
  * session supplied in {@link ToolsOptions}.
@@ -183,7 +183,7 @@ export function buildTools(
 
 		agent_memory_inspect: tool({
 			description:
-				'Resolve a AgentMemory reference (e.g. `entity:person/tobie`, ' +
+				'Resolve an Agent Memory reference (e.g. `entity:person/tobie`, ' +
 				'`attribute:...`, `relation:...`, `trace:...`) to its normalised view.',
 			inputSchema: jsonSchema<{ ref: string }>({
 				type: 'object',

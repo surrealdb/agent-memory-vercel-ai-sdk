@@ -1,8 +1,8 @@
 # @surrealdb/agent-memory-vercel-ai
 
-[Vercel AI SDK](https://ai-sdk.dev) integration for **[AgentMemory](https://surrealdb.com/platform/agentMemory)** — SurrealDB's agent memory layer.
+[Vercel AI SDK](https://ai-sdk.dev) integration for **[Agent Memory](https://surrealdb.com/agent-memory)** — SurrealDB's agent memory layer.
 
-Keep using your own model provider (`@ai-sdk/openai`, `@ai-sdk/anthropic`, …) with `generateText` / `streamText`, and let AgentMemory transparently:
+Keep using your own model provider (`@ai-sdk/openai`, `@ai-sdk/anthropic`, …) with `generateText` / `streamText`, and let Agent Memory transparently:
 
 - **inject** relevant long-term memory (and the user's profile) into the prompt before generation, and
 - **store** each user + assistant exchange afterward,
@@ -29,7 +29,7 @@ npm i @ai-sdk/openai
 | ------------------- | ------------------------------- |
 | `AGENT_MEMORY_ENDPOINT` | API endpoint origin             |
 | `AGENT_MEMORY_API_KEY`  | Bearer API key                  |
-| `AGENT_MEMORY_CONTEXT`  | AgentMemory context id             |
+| `AGENT_MEMORY_CONTEXT`  | Agent Memory context id             |
 
 ```ts
 import { createAgentMemory } from '@surrealdb/agent-memory-vercel-ai';
@@ -84,7 +84,7 @@ reply, and stores it when the stream finishes.
 | `includeProfile` | `true`      | Inject the user's profile (`client.profile`).                         |
 | `onError`        | no-op       | Called on memory errors; generation still proceeds (**fail-open**).   |
 
-Memory operations are **fail-open**: if AgentMemory is unreachable, the middleware
+Memory operations are **fail-open**: if Agent Memory is unreachable, the middleware
 falls back to a plain LLM call rather than throwing.
 
 ### Bring your own messages
