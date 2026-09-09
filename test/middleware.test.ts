@@ -75,7 +75,7 @@ describe('transformParams', () => {
 		const onError = vi.fn();
 		const client = createFakeClient({
 			context: vi.fn(async () => {
-				throw new Error('spectron down');
+				throw new Error('agentMemory down');
 			}),
 		});
 		const mw = buildMiddleware(client, { onError });

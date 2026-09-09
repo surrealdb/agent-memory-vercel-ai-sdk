@@ -10,5 +10,5 @@ export default defineConfig({
 	clean: true,
 	treeshake: true,
 	splitting: false,
-	external: ['ai', '@surrealdb/spectron'],
+	external: ['ai', '@surrealdb/memory'],
 });

@@ -1,20 +1,20 @@
-# @surrealdb/spectron-vercel-ai
+# @surrealdb/agent-memory-vercel-ai
 
-[Vercel AI SDK](https://ai-sdk.dev) integration for **[Spectron](https://surrealdb.com/platform/spectron)** — SurrealDB's agent memory layer.
+[Vercel AI SDK](https://ai-sdk.dev) integration for **[AgentMemory](https://surrealdb.com/platform/agentMemory)** — SurrealDB's agent memory layer.
 
-Keep using your own model provider (`@ai-sdk/openai`, `@ai-sdk/anthropic`, …) with `generateText` / `streamText`, and let Spectron transparently:
+Keep using your own model provider (`@ai-sdk/openai`, `@ai-sdk/anthropic`, …) with `generateText` / `streamText`, and let AgentMemory transparently:
 
 - **inject** relevant long-term memory (and the user's profile) into the prompt before generation, and
 - **store** each user + assistant exchange afterward,
 
 plus an optional **tool set** so the model can query memory on demand mid-generation.
 
-The design mirrors the [Honcho Vercel AI SDK integration](https://honcho.dev/docs/v3/guides/integrations/vercel-ai-sdk): `createSpectron()` → `.middleware()` / `.tools()`.
+The design mirrors the [Honcho Vercel AI SDK integration](https://honcho.dev/docs/v3/guides/integrations/vercel-ai-sdk): `createAgentMemory()` → `.middleware()` / `.tools()`.
 
 ## Install
 
 ```sh
-npm i @surrealdb/spectron-vercel-ai ai @surrealdb/spectron
+npm i @surrealdb/agent-memory-vercel-ai ai @surrealdb/memory
 # plus your model provider, e.g.
 npm i @ai-sdk/openai
 ```
@@ -23,24 +23,24 @@ npm i @ai-sdk/openai
 
 ## Setup
 
-`createSpectron()` reads credentials from the environment by default:
+`createAgentMemory()` reads credentials from the environment by default:
 
 | Variable            | Description                     |
 | ------------------- | ------------------------------- |
-| `SPECTRON_ENDPOINT` | API endpoint origin             |
-| `SPECTRON_API_KEY`  | Bearer API key                  |
-| `SPECTRON_CONTEXT`  | Spectron context id             |
+| `AGENT_MEMORY_ENDPOINT` | API endpoint origin             |
+| `AGENT_MEMORY_API_KEY`  | Bearer API key                  |
+| `AGENT_MEMORY_CONTEXT`  | AgentMemory context id             |
 
 ```ts
-import { createSpectron } from '@surrealdb/spectron-vercel-ai';
+import { createAgentMemory } from '@surrealdb/agent-memory-vercel-ai';
 
 // From env, bound to one user by default.
-const spectron = createSpectron({ defaultScopes: 'user/tobie' });
+const agentMemory = createAgentMemory({ defaultScopes: 'user/tobie' });
 
 // Or pass config / a preconstructed client explicitly:
-import { Spectron } from '@surrealdb/spectron-vercel-ai';
-const spectron = createSpectron({
-  client: new Spectron({ endpoint, apiKey, context }),
+import { AgentMemory } from '@surrealdb/agent-memory-vercel-ai';
+const agentMemory = createAgentMemory({
+  client: new AgentMemory({ endpoint, apiKey, context }),
 });
 ```
 
@@ -53,13 +53,13 @@ after generation.
 ```ts
 import { openai } from '@ai-sdk/openai';
 import { generateText, wrapLanguageModel } from 'ai';
-import { createSpectron } from '@surrealdb/spectron-vercel-ai';
+import { createAgentMemory } from '@surrealdb/agent-memory-vercel-ai';
 
-const spectron = createSpectron({ defaultScopes: 'user/tobie' });
+const agentMemory = createAgentMemory({ defaultScopes: 'user/tobie' });
 
 const model = wrapLanguageModel({
   model: openai('gpt-4o'),
-  middleware: spectron.middleware({ sessionId: 'session-123' }),
+  middleware: agentMemory.middleware({ sessionId: 'session-123' }),
 });
 
 const { text } = await generateText({
@@ -84,7 +84,7 @@ reply, and stores it when the stream finishes.
 | `includeProfile` | `true`      | Inject the user's profile (`client.profile`).                         |
 | `onError`        | no-op       | Called on memory errors; generation still proceeds (**fail-open**).   |
 
-Memory operations are **fail-open**: if Spectron is unreachable, the middleware
+Memory operations are **fail-open**: if AgentMemory is unreachable, the middleware
 falls back to a plain LLM call rather than throwing.
 
 ### Bring your own messages
@@ -95,7 +95,7 @@ history to avoid duplication by turning `store` off, or scope retrieval with
 
 ## Tools
 
-`spectron.tools()` returns a Vercel AI SDK `ToolSet` the model can call during
+`agentMemory.tools()` returns a Vercel AI SDK `ToolSet` the model can call during
 generation. Bound to the same scope / session you pass.
 
 ```ts
@@ -103,7 +103,7 @@ import { generateText, stepCountIs } from 'ai';
 
 const { text } = await generateText({
   model,
-  tools: spectron.tools({ sessionId: 'session-123' }),
+  tools: agentMemory.tools({ sessionId: 'session-123' }),
   stopWhen: stepCountIs(3),
   prompt: 'Based on our past conversations, what do I care about most?',
 });
@@ -111,28 +111,28 @@ const { text } = await generateText({
 
 | Tool                 | What it does                                                     |
 | -------------------- | --------------------------------------------------------------- |
-| `spectron_recall`    | Semantic recall of facts & passages for a query.               |
-| `spectron_context`   | Server-formatted context text for a query.                     |
-| `spectron_reflect`   | Synthesise over memory; optionally persist the conclusion.     |
-| `spectron_remember`  | Persist a fact / observation for future recall.                |
-| `spectron_forget`    | Forget memories matching a query.                              |
-| `spectron_profile`   | The user's static/dynamic attributes, preferences, instructions. |
-| `spectron_inspect`   | Resolve an entity / attribute / relation / trace reference.     |
+| `agent_memory_recall`    | Semantic recall of facts & passages for a query.               |
+| `agent_memory_context`   | Server-formatted context text for a query.                     |
+| `agent_memory_reflect`   | Synthesise over memory; optionally persist the conclusion.     |
+| `agent_memory_remember`  | Persist a fact / observation for future recall.                |
+| `agent_memory_forget`    | Forget memories matching a query.                              |
+| `agent_memory_profile`   | The user's static/dynamic attributes, preferences, instructions. |
+| `agent_memory_inspect`   | Resolve an entity / attribute / relation / trace reference.     |
 
 ## Scopes
 
 Scopes bind reads and writes to a region of memory (a DNF selector). A bare
-string is a single path; see [`@surrealdb/spectron`](https://www.npmjs.com/package/@surrealdb/spectron)
+string is a single path; see [`@surrealdb/memory`](https://www.npmjs.com/package/@surrealdb/memory)
 for the full model.
 
 ```ts
-spectron.middleware({ scopes: 'user/tobie' });          // one user
-spectron.middleware({ scopes: ['team/eng', 'user/x'] }); // OR of two
+agentMemory.middleware({ scopes: 'user/tobie' });          // one user
+agentMemory.middleware({ scopes: ['team/eng', 'user/x'] }); // OR of two
 ```
 
 ## Direct client access
 
-`spectron.client` is the underlying `@surrealdb/spectron` client for anything not
+`agentMemory.client` is the underlying `@surrealdb/memory` client for anything not
 wrapped here (documents, sessions, entities, `chat`, etc.).
 
 ## Example

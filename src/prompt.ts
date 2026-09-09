@@ -11,7 +11,7 @@
 
 /** Header prefixed to the injected memory system message. */
 export const MEMORY_HEADER =
-	'The following is relevant long-term memory retrieved from Spectron for ' +
+	'The following is relevant long-term memory retrieved from AgentMemory for ' +
 	'the current user. Use it to ground your response; do not repeat it back ' +
 	'verbatim unless asked.';
 

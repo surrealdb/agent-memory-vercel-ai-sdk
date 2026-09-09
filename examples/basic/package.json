@@ -1,5 +1,5 @@
 {
-	"name": "@surrealdb/spectron-vercel-ai-example-basic",
+	"name": "@surrealdb/agent-memory-vercel-ai-example-basic",
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
@@ -8,7 +8,7 @@
 	},
 	"dependencies": {
 		"@ai-sdk/openai": "^2.0.0",
-		"@surrealdb/spectron-vercel-ai": "file:../..",
+		"@surrealdb/agent-memory-vercel-ai": "file:../..",
 		"ai": "^7.0.19"
 	}
 }

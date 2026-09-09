@@ -1,16 +1,16 @@
 {
-	"name": "@surrealdb/spectron-vercel-ai",
-	"version": "0.1.0",
-	"description": "Vercel AI SDK integration for Spectron — SurrealDB's agent memory layer. Middleware and tools that give generateText / streamText long-term memory.",
-	"homepage": "https://surrealdb.com/platform/spectron",
+	"name": "@surrealdb/agent-memory-vercel-ai",
+	"version": "0.2.0",
+	"description": "Vercel AI SDK integration for AgentMemory — SurrealDB's agent memory layer. Middleware and tools that give generateText / streamText long-term memory.",
+	"homepage": "https://surrealdb.com/platform/agentMemory",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/surrealdb-dev/spectron-vercel-ai-sdk.git"
+		"url": "https://github.com/surrealdb-dev/agentMemory-vercel-ai-sdk.git"
 	},
 	"license": "Apache-2.0",
 	"type": "module",
 	"keywords": [
-		"spectron",
+		"agentMemory",
 		"surrealdb",
 		"vercel",
 		"ai-sdk",
@@ -60,7 +60,7 @@
 		"clean": "rm -rf dist"
 	},
 	"dependencies": {
-		"@surrealdb/spectron": "^1.0.0-alpha.5"
+		"@surrealdb/memory": "^1.0.0-alpha.9"
 	},
 	"peerDependencies": {
 		"ai": "^7.0.0",

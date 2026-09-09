@@ -1,13 +1,13 @@
-import type { Spectron } from '@surrealdb/spectron';
+import type { AgentMemory } from '@surrealdb/memory';
 import { vi } from 'vitest';
 
 /**
- * A minimal fake Spectron client for tests. Only the methods the middleware and
+ * A minimal fake AgentMemory client for tests. Only the methods the middleware and
  * tools touch are implemented; each is a `vi.fn()` with a sensible default that
  * individual tests can override with `mockResolvedValueOnce`.
  */
 export function createFakeClient(
-	overrides: Partial<Record<keyof Spectron, unknown>> = {},
+	overrides: Partial<Record<keyof AgentMemory, unknown>> = {},
 ) {
 	const client = {
 		context: vi.fn(async () => ({
@@ -54,7 +54,7 @@ export function createFakeClient(
 		inspect: vi.fn(async () => ({ kind: 'entity', entity: { id: 'x' } })),
 		...overrides,
 	};
-	return client as unknown as Spectron & typeof client;
+	return client as unknown as AgentMemory & typeof client;
 }
 
 /** Builds a ReadableStream that emits the given parts and closes. */
