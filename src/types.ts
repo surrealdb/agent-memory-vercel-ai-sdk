@@ -1,26 +1,26 @@
-import type { Scope, Spectron } from '@surrealdb/spectron';
+import type { AgentMemory, Scope } from '@surrealdb/memory';
 
 /**
  * How the middleware retrieves memory to inject before generation:
- * - `'context'` — Spectron's server-formatted context text (`client.context`).
+ * - `'context'` — Agent Memory's server-formatted context text (`client.context`).
  * - `'recall'` — raw semantic hits (`client.recall`), formatted as a list.
  * - `false` — retrieve nothing (still stores the exchange, still injects the
  *   profile when enabled).
  */
 export type MemoryRetrievalMode = 'context' | 'recall' | false;
 
-/** Configuration for {@link createSpectron}. */
-export interface CreateSpectronConfig {
+/** Configuration for {@link createAgentMemory}. */
+export interface CreateAgentMemoryConfig {
 	/**
-	 * A preconstructed Spectron client. When provided, `endpoint` / `apiKey` /
+	 * A preconstructed Agent Memory client. When provided, `endpoint` / `apiKey` /
 	 * `context` are ignored.
 	 */
-	client?: Spectron;
-	/** API endpoint origin. Defaults to `process.env.SPECTRON_ENDPOINT`. */
+	client?: AgentMemory;
+	/** API endpoint origin. Defaults to `process.env.AGENT_MEMORY_ENDPOINT`. */
 	endpoint?: string;
-	/** Bearer API key. Defaults to `process.env.SPECTRON_API_KEY`. */
+	/** Bearer API key. Defaults to `process.env.AGENT_MEMORY_API_KEY`. */
 	apiKey?: string;
-	/** Spectron context id. Defaults to `process.env.SPECTRON_CONTEXT`. */
+	/** Agent Memory context id. Defaults to `process.env.AGENT_MEMORY_CONTEXT`. */
 	context?: string;
 	/**
 	 * Default scope binding applied to every `middleware()` / `tools()` call
@@ -29,12 +29,12 @@ export interface CreateSpectronConfig {
 	defaultScopes?: Scope;
 	/**
 	 * Default handler for memory errors. Memory operations are fail-open, so a
-	 * Spectron outage degrades to a plain LLM call rather than throwing.
+	 * Agent Memory outage degrades to a plain LLM call rather than throwing.
 	 */
 	onError?: (error: unknown) => void;
 }
 
-/** Options for {@link SpectronProvider.middleware}. */
+/** Options for {@link AgentMemoryProvider.middleware}. */
 export interface MiddlewareOptions {
 	/** DNF scope selector for reads and writes, e.g. `'user/tobie'`. */
 	scopes?: Scope;
@@ -54,7 +54,7 @@ export interface MiddlewareOptions {
 	onError?: (error: unknown) => void;
 }
 
-/** Options for {@link SpectronProvider.tools}. */
+/** Options for {@link AgentMemoryProvider.tools}. */
 export interface ToolsOptions {
 	/** DNF scope selector bound to every tool call, e.g. `'user/tobie'`. */
 	scopes?: Scope;

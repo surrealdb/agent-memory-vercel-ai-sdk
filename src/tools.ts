@@ -1,21 +1,21 @@
-import type { Spectron } from '@surrealdb/spectron';
+import type { AgentMemory } from '@surrealdb/memory';
 import { jsonSchema, type ToolSet, tool } from 'ai';
 import type { ToolsOptions } from './types';
 
 /**
- * Builds a Vercel AI SDK {@link ToolSet} that exposes Spectron's memory
+ * Builds a Vercel AI SDK {@link ToolSet} that exposes Agent Memory's memory
  * operations to the model, for on-demand queries during generation. Tool inputs
  * use `jsonSchema` (no `zod` dependency). Every tool is bound to the scope and
  * session supplied in {@link ToolsOptions}.
  */
 export function buildTools(
-	client: Spectron,
+	client: AgentMemory,
 	options: ToolsOptions = {},
 ): ToolSet {
 	const { scopes, sessionId } = options;
 
 	return {
-		spectron_recall: tool({
+		agent_memory_recall: tool({
 			description:
 				'Search long-term memory for facts and passages relevant to a ' +
 				'natural-language query. Returns the top matching hits.',
@@ -50,9 +50,9 @@ export function buildTools(
 			},
 		}),
 
-		spectron_context: tool({
+		agent_memory_context: tool({
 			description:
-				'Retrieve Spectron-formatted context text summarising what is ' +
+				'Retrieve AgentMemory-formatted context text summarising what is ' +
 				'known that is relevant to a query, ready for prompt injection.',
 			inputSchema: jsonSchema<{ query: string; k?: number }>({
 				type: 'object',
@@ -78,7 +78,7 @@ export function buildTools(
 			},
 		}),
 
-		spectron_reflect: tool({
+		agent_memory_reflect: tool({
 			description:
 				'Synthesise an answer over stored memory (traits, preferences, ' +
 				'patterns). Optionally persist the conclusion for future recall.',
@@ -109,7 +109,7 @@ export function buildTools(
 			},
 		}),
 
-		spectron_remember: tool({
+		agent_memory_remember: tool({
 			description:
 				'Persist a fact or observation into long-term memory so it can ' +
 				'be recalled in future sessions.',
@@ -133,7 +133,7 @@ export function buildTools(
 			},
 		}),
 
-		spectron_forget: tool({
+		agent_memory_forget: tool({
 			description:
 				'Forget memories matching a natural-language query (soft-delete). ' +
 				'Returns how many memories were removed.',
@@ -161,7 +161,7 @@ export function buildTools(
 			},
 		}),
 
-		spectron_profile: tool({
+		agent_memory_profile: tool({
 			description:
 				"Get the user's profile: static facts, dynamic attributes, " +
 				'preferences, and standing instructions.',
@@ -181,9 +181,9 @@ export function buildTools(
 			},
 		}),
 
-		spectron_inspect: tool({
+		agent_memory_inspect: tool({
 			description:
-				'Resolve a Spectron reference (e.g. `entity:person/tobie`, ' +
+				'Resolve an Agent Memory reference (e.g. `entity:person/tobie`, ' +
 				'`attribute:...`, `relation:...`, `trace:...`) to its normalised view.',
 			inputSchema: jsonSchema<{ ref: string }>({
 				type: 'object',

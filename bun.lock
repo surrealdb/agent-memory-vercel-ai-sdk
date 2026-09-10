@@ -3,9 +3,9 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@surrealdb/spectron-vercel-ai",
+      "name": "@surrealdb/agent-memory-vercel-ai",
       "dependencies": {
-        "@surrealdb/spectron": "^1.0.0-alpha.5",
+        "@surrealdb/memory": "^1.0.0-alpha.9",
       },
       "devDependencies": {
         "@biomejs/biome": "2.4.14",
@@ -24,11 +24,11 @@
       ],
     },
     "examples/basic": {
-      "name": "@surrealdb/spectron-vercel-ai-example-basic",
+      "name": "@surrealdb/agent-memory-vercel-ai-example-basic",
       "version": "0.0.0",
       "dependencies": {
         "@ai-sdk/openai": "^2.0.0",
-        "@surrealdb/spectron-vercel-ai": "file:../..",
+        "@surrealdb/agent-memory-vercel-ai": "file:../..",
         "ai": "^7.0.19",
       },
     },
@@ -172,11 +172,11 @@
 
     "@standard-schema/spec": ["@standard-schema/spec@1.1.0", "", {}, "sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w=="],
 
-    "@surrealdb/spectron": ["@surrealdb/spectron@1.0.0-alpha.5", "", { "peerDependencies": { "typescript": "^5.0.0 || ^6.0.0" } }, "sha512-HYW//1SmsmToIodssfFpsMlSTMgfmtCFdZWTKBm3XDA4bjbAX2QjAxw84JW6VDSGUFhEjiRUcPGGigSf0tqOSw=="],
 
-    "@surrealdb/spectron-vercel-ai": ["@surrealdb/spectron-vercel-ai@root:", {}],
+    "@surrealdb/agent-memory-vercel-ai": ["@surrealdb/agent-memory-vercel-ai@root:", {}],
 
-    "@surrealdb/spectron-vercel-ai-example-basic": ["@surrealdb/spectron-vercel-ai-example-basic@workspace:examples/basic"],
+    "@surrealdb/agent-memory-vercel-ai-example-basic": ["@surrealdb/agent-memory-vercel-ai-example-basic@workspace:examples/basic"],
+    "@surrealdb/memory": ["@surrealdb/memory@1.0.0-alpha.9", "", { "peerDependencies": { "typescript": "^5.0.0 || ^6.0.0" } }, "sha512-tvFO3qJV1jwfUH8mZ7buLAWmOx0siko1uDVd/7pCRe5DqhTI0YMU27ecpRjjbXxvupWMhClIFrH2gfNoThWFVA=="],
 
     "@types/chai": ["@types/chai@5.2.3", "", { "dependencies": { "@types/deep-eql": "*", "assertion-error": "^2.0.1" } }, "sha512-Mw558oeA9fFbv65/y4mHtXDs9bPnFMZAL/jxdPFUpOHHIXX91mcgEHbS5Lahr+pwZFR8A7GQleRWeI6cGFC2UA=="],
 

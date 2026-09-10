@@ -1,44 +1,46 @@
-import { Spectron, type SpectronOptions } from '@surrealdb/spectron';
+import { AgentMemory, type AgentMemoryOptions } from '@surrealdb/memory';
 import type { LanguageModelMiddleware, ToolSet } from 'ai';
 import { buildMiddleware } from './middleware';
 import { buildTools } from './tools';
 import type {
-	CreateSpectronConfig,
+	CreateAgentMemoryConfig,
 	MiddlewareOptions,
 	ToolsOptions,
 } from './types';
 
-/** The object returned by {@link createSpectron}. */
-export interface SpectronProvider {
-	/** The underlying Spectron client (use it directly for anything not wrapped). */
-	client: Spectron;
+/** The object returned by {@link createAgentMemory}. */
+export interface AgentMemoryProvider {
+	/** The underlying Agent Memory client (use it directly for anything not wrapped). */
+	client: AgentMemory;
 	/** A language-model middleware that injects and stores memory. */
 	middleware(options?: MiddlewareOptions): LanguageModelMiddleware;
-	/** A tool set exposing Spectron memory operations to the model. */
+	/** A tool set exposing Agent Memory operations to the model. */
 	tools(options?: ToolsOptions): ToolSet;
 }
 
-function resolveClientOptions(config: CreateSpectronConfig): SpectronOptions {
-	const endpoint = config.endpoint ?? process.env.SPECTRON_ENDPOINT;
-	const apiKey = config.apiKey ?? process.env.SPECTRON_API_KEY;
-	const context = config.context ?? process.env.SPECTRON_CONTEXT;
+function resolveClientOptions(
+	config: CreateAgentMemoryConfig,
+): AgentMemoryOptions {
+	const endpoint = config.endpoint ?? process.env.AGENT_MEMORY_ENDPOINT;
+	const apiKey = config.apiKey ?? process.env.AGENT_MEMORY_API_KEY;
+	const context = config.context ?? process.env.AGENT_MEMORY_CONTEXT;
 
 	if (!endpoint) {
 		throw new Error(
-			'createSpectron: missing `endpoint`. Pass config.endpoint, set ' +
-				'SPECTRON_ENDPOINT, or pass a preconstructed `client`.',
+			'createAgentMemory: missing `endpoint`. Pass config.endpoint, set ' +
+				'AGENT_MEMORY_ENDPOINT, or pass a preconstructed `client`.',
 		);
 	}
 	if (!apiKey) {
 		throw new Error(
-			'createSpectron: missing `apiKey`. Pass config.apiKey, set ' +
-				'SPECTRON_API_KEY, or pass a preconstructed `client`.',
+			'createAgentMemory: missing `apiKey`. Pass config.apiKey, set ' +
+				'AGENT_MEMORY_API_KEY, or pass a preconstructed `client`.',
 		);
 	}
 	if (!context) {
 		throw new Error(
-			'createSpectron: missing `context`. Pass config.context, set ' +
-				'SPECTRON_CONTEXT, or pass a preconstructed `client`.',
+			'createAgentMemory: missing `context`. Pass config.context, set ' +
+				'AGENT_MEMORY_CONTEXT, or pass a preconstructed `client`.',
 		);
 	}
 
@@ -46,37 +48,38 @@ function resolveClientOptions(config: CreateSpectronConfig): SpectronOptions {
 }
 
 /**
- * Creates a Spectron provider for the Vercel AI SDK.
+ * Creates an Agent Memory provider for the Vercel AI SDK.
  *
- * Mirrors the Honcho integration: `createSpectron().middleware()` wraps your
+ * Mirrors the Honcho integration: `createAgentMemory().middleware()` wraps your
  * own model (via `wrapLanguageModel`) to give `generateText` / `streamText`
- * long-term memory, and `createSpectron().tools()` exposes memory operations to
+ * long-term memory, and `createAgentMemory().tools()` exposes memory operations to
  * the model.
  *
  * @example
  * ```ts
  * import { openai } from '@ai-sdk/openai';
  * import { generateText, wrapLanguageModel } from 'ai';
- * import { createSpectron } from '@surrealdb/spectron-vercel-ai';
+ * import { createAgentMemory } from '@surrealdb/agent-memory-vercel-ai';
  *
- * const spectron = createSpectron({ defaultScopes: 'user/tobie' });
+ * const agentMemory = createAgentMemory({ defaultScopes: 'user/tobie' });
  *
  * const model = wrapLanguageModel({
  *   model: openai('gpt-4o'),
- *   middleware: spectron.middleware(),
+ *   middleware: agentMemory.middleware(),
  * });
  *
  * const { text } = await generateText({
  *   model,
- *   tools: spectron.tools(),
+ *   tools: agentMemory.tools(),
  *   prompt: 'What should I focus on today?',
  * });
  * ```
  */
-export function createSpectron(
-	config: CreateSpectronConfig = {},
-): SpectronProvider {
-	const client = config.client ?? new Spectron(resolveClientOptions(config));
+export function createAgentMemory(
+	config: CreateAgentMemoryConfig = {},
+): AgentMemoryProvider {
+	const client =
+		config.client ?? new AgentMemory(resolveClientOptions(config));
 
 	return {
 		client,

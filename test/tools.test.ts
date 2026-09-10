@@ -8,24 +8,24 @@ describe('buildTools', () => {
 	it('exposes the expected tool set', () => {
 		const tools = buildTools(createFakeClient());
 		expect(Object.keys(tools).sort()).toEqual([
-			'spectron_context',
-			'spectron_forget',
-			'spectron_inspect',
-			'spectron_profile',
-			'spectron_recall',
-			'spectron_reflect',
-			'spectron_remember',
+			'agent_memory_context',
+			'agent_memory_forget',
+			'agent_memory_inspect',
+			'agent_memory_profile',
+			'agent_memory_recall',
+			'agent_memory_reflect',
+			'agent_memory_remember',
 		]);
 	});
 
-	it('spectron_recall maps hits and binds scope + session', async () => {
+	it('agent_memory_recall maps hits and binds scope + session', async () => {
 		const client = createFakeClient();
 		const tools = buildTools(client, {
 			scopes: 'user/tobie',
 			sessionId: 's1',
 		});
 
-		const out = (await tools.spectron_recall?.execute?.(
+		const out = (await tools.agent_memory_recall?.execute?.(
 			{ query: 'where do I live?', k: 5 },
 			execOpts,
 		)) as { hits: Array<{ text: string; score: number }> };
@@ -42,11 +42,11 @@ describe('buildTools', () => {
 		});
 	});
 
-	it('spectron_context returns the context text', async () => {
+	it('agent_memory_context returns the context text', async () => {
 		const client = createFakeClient();
 		const tools = buildTools(client, { scopes: 'user/tobie' });
 
-		const out = (await tools.spectron_context?.execute?.(
+		const out = (await tools.agent_memory_context?.execute?.(
 			{ query: 'preferences' },
 			execOpts,
 		)) as { context: string };
@@ -58,14 +58,14 @@ describe('buildTools', () => {
 		expect(out.context).toBe('CONTEXT_TEXT');
 	});
 
-	it('spectron_remember persists a fact with the bound scope', async () => {
+	it('agent_memory_remember persists a fact with the bound scope', async () => {
 		const client = createFakeClient();
 		const tools = buildTools(client, {
 			scopes: 'user/tobie',
 			sessionId: 's1',
 		});
 
-		const out = (await tools.spectron_remember?.execute?.(
+		const out = (await tools.agent_memory_remember?.execute?.(
 			{ text: 'I got promoted' },
 			execOpts,
 		)) as { stored: boolean };
@@ -77,11 +77,11 @@ describe('buildTools', () => {
 		expect(out.stored).toBe(true);
 	});
 
-	it('spectron_forget returns the deleted count', async () => {
+	it('agent_memory_forget returns the deleted count', async () => {
 		const client = createFakeClient();
 		const tools = buildTools(client);
 
-		const out = (await tools.spectron_forget?.execute?.(
+		const out = (await tools.agent_memory_forget?.execute?.(
 			{ query: 'old notes', purge: true },
 			execOpts,
 		)) as { deleted: number };
@@ -92,11 +92,11 @@ describe('buildTools', () => {
 		expect(out.deleted).toBe(3);
 	});
 
-	it('spectron_reflect passes the persist flag through', async () => {
+	it('agent_memory_reflect passes the persist flag through', async () => {
 		const client = createFakeClient();
 		const tools = buildTools(client);
 
-		const out = (await tools.spectron_reflect?.execute?.(
+		const out = (await tools.agent_memory_reflect?.execute?.(
 			{ query: 'what changed?', persist: true },
 			execOpts,
 		)) as { reflection: string };
@@ -107,11 +107,11 @@ describe('buildTools', () => {
 		expect(out.reflection).toBe('REFLECTION');
 	});
 
-	it('spectron_inspect resolves a ref', async () => {
+	it('agent_memory_inspect resolves a ref', async () => {
 		const client = createFakeClient();
 		const tools = buildTools(client);
 
-		await tools.spectron_inspect?.execute?.(
+		await tools.agent_memory_inspect?.execute?.(
 			{ ref: 'entity:person/tobie' },
 			execOpts,
 		);

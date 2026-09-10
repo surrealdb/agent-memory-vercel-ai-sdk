@@ -1,4 +1,4 @@
-import type { Spectron } from '@surrealdb/spectron';
+import type { AgentMemory } from '@surrealdb/memory';
 import type { LanguageModelMiddleware } from 'ai';
 import {
 	buildMemoryBlock,
@@ -8,12 +8,12 @@ import {
 } from './prompt';
 import type { MiddlewareOptions } from './types';
 
-type ProfileResult = Awaited<ReturnType<Spectron['profile']>>;
+type ProfileResult = Awaited<ReturnType<AgentMemory['profile']>>;
 
 /** A single stream frame we care about; other fields pass through untouched. */
 type StreamChunk = { type: string; delta?: string };
 
-/** Formats a Spectron profile into a compact, prompt-friendly list. */
+/** Formats an Agent Memory profile into a compact, prompt-friendly list. */
 function formatProfile(profile: ProfileResult): string {
 	const lines: string[] = [];
 	for (const entry of [
@@ -34,18 +34,18 @@ function formatProfile(profile: ProfileResult): string {
 }
 
 /**
- * Builds a Vercel AI SDK language-model middleware backed by a Spectron client.
+ * Builds a Vercel AI SDK language-model middleware backed by an Agent Memory client.
  *
  * - `transformParams` retrieves memory (and optionally the profile) for the
  *   latest user message and injects it as a system message.
  * - `wrapGenerate` / `wrapStream` persist the resulting user + assistant
- *   exchange back to Spectron.
+ *   exchange back to Agent Memory.
  *
  * All memory operations are fail-open: on error the middleware invokes
  * `onError` and lets generation proceed as a normal LLM call.
  */
 export function buildMiddleware(
-	client: Spectron,
+	client: AgentMemory,
 	options: MiddlewareOptions = {},
 ): LanguageModelMiddleware {
 	const { scopes, sessionId } = options;
